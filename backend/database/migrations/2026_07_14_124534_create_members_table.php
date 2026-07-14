@@ -15,6 +15,7 @@ return new class extends Migration
 
             // Dados pessoais
             $table->string('name');
+            $table->string('nickname')->nullable();
             $table->date('birth_date')->nullable();
             $table->string('natural_of', 2)->nullable();
             $table->string('marital_status')->nullable();

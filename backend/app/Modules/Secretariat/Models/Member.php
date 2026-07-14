@@ -18,6 +18,7 @@ class Member extends Model
         'lodge_id',
         'status',
         'name',
+        'nickname',
         'birth_date',
         'natural_of',
         'marital_status',
