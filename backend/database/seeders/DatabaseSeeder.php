@@ -16,14 +16,14 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         User::updateOrCreate(
-            ['email' => 'admin@gosp.org.br'],
-            [
-                'name' => 'Administrador da Plataforma',
-                'role' => 'platform_admin',
-                'lodge_id' => null,
-                'member_id' => null,
-                'password' => bcrypt('password'),
-            ]
-        );
+                ['email' => 'admin@gosp.org.br'],
+                [
+                    'name' => 'Administrador da Plataforma',
+                    'role' => 'platform_admin',
+                    'lodge_id' => null,
+                    'member_id' => null,
+                    'password' => bcrypt('password'),
+                ]
+            );
     }
 }
