@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../routing/role_router.dart';
 import '../services/auth_service.dart';
 import '../theme/app_theme.dart';
-import 'home_screen.dart';
 import 'login_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -21,13 +21,24 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future<void> _redirect() async {
     final hasToken = await AuthService.instance.isLoggedIn;
-    await Future.delayed(const Duration(milliseconds: 1200));
+
+    Widget destination = const LoginScreen();
+    if (hasToken) {
+      try {
+        final profile = await AuthService.instance.me();
+        destination = homeScreenForRole(profile.role);
+      } catch (_) {
+        // Token inválido/expirado: volta pro login.
+        await AuthService.instance.logout();
+        destination = const LoginScreen();
+      }
+    }
+
+    await Future.delayed(const Duration(milliseconds: 900));
 
     if (!mounted) return;
     Navigator.of(context).pushReplacement(
-      MaterialPageRoute(
-        builder: (_) => hasToken ? const HomeScreen() : const LoginScreen(),
-      ),
+      MaterialPageRoute(builder: (_) => destination),
     );
   }
 

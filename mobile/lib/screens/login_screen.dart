@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
+import '../routing/role_router.dart';
 import '../services/api_exception.dart';
 import '../services/auth_service.dart';
 import '../theme/app_theme.dart';
-import 'home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -32,14 +32,14 @@ class _LoginScreenState extends State<LoginScreen> {
     setState(() => _isSubmitting = true);
 
     try {
-      await AuthService.instance.login(
+      final profile = await AuthService.instance.login(
         email: _emailController.text.trim(),
         password: _passwordController.text,
       );
 
       if (!mounted) return;
       Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (_) => const HomeScreen()),
+        MaterialPageRoute(builder: (_) => homeScreenForRole(profile.role)),
       );
     } on ApiException catch (e) {
       if (!mounted) return;
