@@ -4,6 +4,7 @@ import '../models/lodge_session.dart';
 import '../services/api_exception.dart';
 import '../services/session_service.dart';
 import '../theme/app_theme.dart';
+import '../widgets/session_card.dart';
 
 class SessionsScreen extends StatefulWidget {
   const SessionsScreen({super.key});
@@ -57,79 +58,22 @@ class _SessionsScreenState extends State<SessionsScreen> {
             return ListView(
               children: const [
                 SizedBox(height: 80),
-                Icon(Icons.event_busy, size: 48, color: AppColors.navy),
+                Icon(Icons.event_busy, size: 48, color: AppColors.textMuted),
                 SizedBox(height: 12),
                 Text(
                   'Nenhuma sessão registrada ainda.',
                   textAlign: TextAlign.center,
+                  style: TextStyle(color: AppColors.textMuted),
                 ),
               ],
             );
           }
 
           return ListView.separated(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.all(20),
             itemCount: sessions.length,
             separatorBuilder: (context, index) => const SizedBox(height: 10),
-            itemBuilder: (context, index) {
-              final session = sessions[index];
-              return Container(
-                padding: const EdgeInsets.all(14),
-                decoration: BoxDecoration(
-                  color: AppColors.powderBlueLight,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Row(
-                  children: [
-                    Container(
-                      width: 46,
-                      height: 46,
-                      alignment: Alignment.center,
-                      decoration: const BoxDecoration(
-                        color: AppColors.navy,
-                        shape: BoxShape.circle,
-                      ),
-                      child: const Icon(
-                        Icons.event,
-                        color: Colors.white,
-                        size: 22,
-                      ),
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            '${session.type} · ${session.degree}',
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: AppColors.navyDark,
-                            ),
-                          ),
-                          Text(
-                            session.date,
-                            style: TextStyle(
-                              color: AppColors.navy.withValues(alpha: 0.7),
-                              fontSize: 13,
-                            ),
-                          ),
-                          if (session.summary != null &&
-                              session.summary!.isNotEmpty)
-                            Padding(
-                              padding: const EdgeInsets.only(top: 4),
-                              child: Text(
-                                session.summary!,
-                                style: const TextStyle(fontSize: 13),
-                              ),
-                            ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              );
-            },
+            itemBuilder: (context, index) => SessionCard(session: sessions[index]),
           );
         },
       ),

@@ -63,14 +63,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   children: [
                     CircleAvatar(
                       radius: 40,
-                      backgroundColor: AppColors.powderBlueLight,
+                      backgroundColor: AppColors.navy,
                       child: Text(
                         profile.name.isNotEmpty
                             ? profile.name[0].toUpperCase()
                             : '?',
                         style: const TextStyle(
                           fontSize: 32,
-                          color: AppColors.navy,
+                          color: Colors.white,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -87,7 +87,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     if (member != null)
                       Text(
                         member.degree ?? '',
-                        style: TextStyle(color: AppColors.navy.withValues(alpha: 0.7)),
+                        style: const TextStyle(color: AppColors.textMuted),
                       ),
                   ],
                 ),
@@ -141,8 +141,9 @@ class _SectionCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: AppColors.powderBlueLight,
-        borderRadius: BorderRadius.circular(12),
+        color: AppColors.cardBg,
+        borderRadius: BorderRadius.circular(18),
+        boxShadow: AppTheme.cardShadow,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -166,7 +167,7 @@ class _SectionCard extends StatelessWidget {
                     width: 110,
                     child: Text(
                       entry.key,
-                      style: TextStyle(color: AppColors.navy.withValues(alpha: 0.7)),
+                      style: const TextStyle(color: AppColors.textMuted),
                     ),
                   ),
                   Expanded(
